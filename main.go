@@ -14,8 +14,8 @@ import (
 func main() {
 
 	var arr []int
+var ForY []int
 	sum := 0.0
-	mean := 0
 	sd := 0.0
 	avr := 0.0
 	readFile, err := os.Open("data.txt")
@@ -34,29 +34,30 @@ func main() {
         	fmt.Printf("%T \n %v", ha, ha)
 		}
 		arr = append(arr, ha)
+		ForY = append(ForY, ha)
 		sum = sum + float64(ha)
 	}
-
+	
 	sort.Ints(arr)
-
-	fmt.Print("The Average is: ")
+	x, e := strconv.Atoi(os.Args[1])
+    	if e != nil {
+        	fmt.Printf("%T \n %v", x, x)
+		}
+		if x > len(arr)-1 {
+			fmt.Println("Error: NO Y VALUE GIVEN ON THE", x , "VALUE.")
+			return
+		}
+	c := ForY[0]
+	m := float64(ForY[x+1]- ForY[0])/float64(x+1)
+	y := (m*float64(x+1)) + float64(c)
 	avr = math.Round(sum/float64(len(arr)))
-	fmt.Println(avr)
-	fmt.Print("The Median is: ")
-	if len(arr)%2 == 0 {
-		mean = int(math.Ceil(float64((arr[(len(arr)/2)-1]) + (arr[(len(arr)/2)]))/2))
-	} else {
-		mean = int(math.Ceil(float64(arr[(len(arr)/2)])))
-	}
-	fmt.Println(mean)
-	fmt.Print("The Variance is: ")
 	for j := 0; j < len(arr); j++ {
 		sd += math.Pow((float64(arr[j])- avr), 2)
 	}
-	varr := math.Round(sd / float64(len(arr)))
-	fmt.Println(int(varr))
-	fmt.Print("The Standard Deviation is: ")
 	sd = math.Round(math.Sqrt(sd / float64(len(arr))))
-	fmt.Println(sd)
+	low := (y-(sd/8))
+	up := (y+(sd/8))
+	fmt.Println(low, "~" , up)
+	fmt.Println(ForY[x+1])
 
 }
