@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"fmt"
-	// "log"
 	"math"
 	"os"
 	"sort"
@@ -21,8 +20,13 @@ func main() {
 		if e != nil {
 			fmt.Printf("%T \n %v", ha, ha)
 		}
-		arr = append(arr, ha)
-		sum = sum + float64(ha)
+		if ha < 100 || ha > 200 {
+			arr = append(arr, (int(math.Round(sum / float64(len(arr))))))
+			sum = sum + float64((int(math.Round(sum / float64(len(arr))))))
+		} else {
+			arr = append(arr, ha)
+			sum = sum + float64(ha)
+		}
 		sort.Ints(arr)
 		avr = math.Round(sum / float64(len(arr)))
 		for j := 0; j < len(arr); j++ {
@@ -30,10 +34,8 @@ func main() {
 		}
 		sd = math.Round(math.Sqrt(sd / float64(len(arr))))
 		y := avr - sd
-		low := int(y - 3)
+		low := int(y - 1)
 		up := int(y + 2)
-
-		fmt.Printf("%d %d\n" ,low, up)
+		fmt.Printf("%d %d\n", low, up)
 	}
-
 }
