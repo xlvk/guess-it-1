@@ -33,9 +33,9 @@ func main() {
 			sd += math.Pow((float64(arr[j]) - avr), 2)
 		}
 		sd = math.Round(math.Sqrt(sd / float64(len(arr))))
-		y := avr 
-		low := int(y - (sd/4))
-		up := int(y + (sd/4))
+		y := avr
+		low := int(y - sd )
+		up := int(y + sd)
 		fmt.Printf("%d %d\n", low, up)
 	}
 }
